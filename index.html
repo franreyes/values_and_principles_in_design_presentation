@@ -1,0 +1,345 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section >
+                    <h2>Values and principles</h2>
+                    <p>in software design</p>
+                </section>
+
+				<section>
+                    <img src="codesai.jpeg" width="300"/>
+                    <img src="agilecanarias.jpeg" width="150"/>
+                    <h3>Fran Reyes - @fran_reyes</h3>
+                </section>
+
+                <section>Values, principles and patterns form a balanced expression of a <span style="color: rgb(128, 85,196)">style of development</span></section>
+
+				<section>Differents values and differents principles will lead to different styles.</section>
+
+                <section>
+                    <blockquote>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</blockquote>
+                    <p>San Martin de Fowler</p>
+                </section>
+
+                <section>
+                    <ul>
+                        <li>Patterns describe what to do</li> 
+                        <li>Value provide motivation</li> 
+                        <li>Principles help translate motive into action.</li>
+                    </ul>
+                    <p style="color: grey; font-size: 30px" class="fragment">Principles bridge values (universal but often difficult to apply directly) and patterns (which are clear to apply but specific).</p>
+                </section>
+
+				<section>
+                    <h3>Communication, Simplicity and Flexibility</h3>
+                    <img src="implementation-patterns.jpg"/>
+                </section>
+
+				<section>
+                    <h2>Software Economics</h2>
+                    <img src="money.gif" />
+                </section>
+
+                <section>
+                    <h3>Communication</h3> 
+                    <p>Code communicates well when a reader can understand it, modify it, or use it.</p> 
+                </section>
+
+				<section>
+				    <section>
+                    <p>What is the purpose of this code?</p> 
+                    <pre><code data-trim data-noescape>
+                            public List&lt;int&gt; getThem(){
+                                var list1 = new List&lt;int&gt;();
+                                forEach(var x : TheList){
+                                    if(x.Status == 4) {
+                                        list1.add(x.Id);
+                                    }
+                                }
+                                return list1;
+                             }
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p >What kinds of things are in the List?</p> 
+                    <pre class="fragment"><code data-trim data-noescape>
+									public List&lt;int&gt; getThem(){
+										var list1 = new List&lt;int&gt;();
+										forEach(var stockVehicle : StockVehicles){
+											if(stockVehicle.Status == 4) {
+												list1.add(stockVehicle.Id);
+											}
+										}
+										return list1;
+									}
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p >What is the significance of the value 4?</p> 
+                    <pre class="fragment"><code data-trim data-noescape>
+									public List&lt;int&gt; getThem(){
+										var list1 = new List&lt;int&gt;();
+										forEach(var stockVehicle : StockVehicles){
+											if(stockVehicle.Status == Blocked) {
+												list1.add(stockVehicle.Id);
+											}
+										}
+										return list1;
+									}
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p>How would I use the list being returned?</p> 
+                    <pre class="fragment"><code data-trim data-noescape>
+									public List&lt;int&gt; getThem(){
+										var blockedVehicleIds = new List&lt;int&gt;();
+										forEach(var stockVehicle : StockVehicles){
+											if(stockVehicle.Status == Blocked) {
+												blockedVehicleIds.add(stockVehicle.Id);
+											}
+										}
+										return blockedVehicleIds;
+									}
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p>What paradigm am I working on?</p> 
+                    <pre class="fragment"><code data-trim data-noescape>
+									public List&lt;int&gt; getThem(){
+										var blockedVehicleIds = new List&lt;int&gt;();
+										forEach(var stockVehicle : StockVehicles){
+											if(stockVehicle.isBlocked()) {
+												blockedVehicleIds.add(stockVehicle.Id);
+											}
+										}
+										return blockedVehicleIds;
+									}
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p>Could be this code close to that ordinary written prose?</p> 
+                    <pre class="fragment"><code data-trim data-noescape>
+                                    public List&lt;int&gt; getThem(){
+                                        StockVehicles
+                                            .Where(vehicle => vehicle.isBlocked())
+                                            .Select(vehicle => vehicle.Id)
+                                            .ToList();
+                                    }
+                    </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Simplicity</h3>
+                    <p>Eliminating excess complexity enables those reading, using, and modifiying programs to understand them more quickly.</p> 
+                    <p class="fragment" style="color: rgb(128, 85,196)">Essential vs accidental complexity</p>
+                </section>
+
+                <section>
+                    <h3>Simplicity</h3>
+                    <p>Sometimes, however, I find a simplication that would make a program harder to understand. I choose <span style="color: rgb(128, 85,196)">communication over simplicity</span> in these cases.</p>
+                </section>
+                
+                <section>
+                    <h3>Simplicity</h3>
+                    <p>Simplicity is in the eye of the beholder. What is simple to an expert programmer, <span style="color: rgb(128, 85,196)">familiar</span> with the power tools of the craft, might be overwhelmingly complex to a beginner.</p>
+                </section>
+                
+                <section>
+                    <h3>Flexibility</h3>
+                    <p>Flexibility is the justification used for the most ineffective codign and design practices.</p>
+                </section>
+
+                <section>
+                    <h3>Flexibility</h3>
+                    <p><a href="https://bitbucket.org/johaneltes/katas/src/e9af49bd8fb5/fizzbuzz/fizzbuzz_groovy/?at=default">Fizz Buzz Kata with engine rules</a></p>
+                    <p><a href="https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition">Fizz Buzz Kata Enterprise Edition</a></p>
+                </section>
+
+                <section>
+                    <h3>Flexibility</h3>
+                    <p>Design for the future. Change is expensive. Make it cheap by anticipating it.</p>
+                    <p class="fragment">
+                        <img src="wrong1.gif" width="300px"/>
+                        <img src="wrong2.gif" width="360px"/>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Flexibility</h3>
+                    <p>That's why flexibility of simplicity and extensive tests is more effective that the flexibility offered by speculated design.</p>
+                </section>
+
+                <section>
+                    <h3>Flexibility</h3>
+                    <p>Flexibility can come at the cost of increased complexity.</p>
+                </section>
+
+                <section>
+                    <h3>Principles</h3>
+                    <ul>
+                        <li>Local consequences</li>
+                        <li>Minimize Repetition</li>
+                        <li>Logic and Data Together</li>
+                        <li>Symmetry</li>
+                        <li>Declarative Expression</li>
+                        <li>Rate of Change</li>
+                    </ul>
+                    <p></p>
+                </section>
+                
+                <section>
+                    <h3>Local consequences</h3>
+                    <p>If a change here can cause a problem there, then the cost of change rise dramatically</p>
+                    <p class="fragment">Code with mostly local consequences communicates effectively. It can be understood gradually without first having assemble an understanding of whole</p>
+                    <p style="font-size: 30px; color: grey" class="fragment">Example: change variable name of Enum in BZ has impact in front end</p>
+                </section>
+                
+                <section>
+                    <h3>Minimize Repetition</h3>
+                    <p>When you have the same code in several places, if you change one copy of the code you have to decide whether or not to change all the other copies</p>
+                </section>
+                
+                <section>
+                    <h3>Logic and Data Together</h3>
+                    <p>Put logic and data it operates on near each other</p>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>Declarative Expression</h3>
+                        <p>Express the logic without describing the What do or How do.</p>
+                        <p>Parts of program that are more like simple facts, without sequence or conditionals, it is easier to read code that is simply declarative.</p>
+                    </section>
+				    <section>
+                    <p>Imperative expression</p> 
+                    <pre><code data-trim data-noescape>
+                                 List&lt;int&gt; results = new List&lt;int&gt;();
+                                 foreach(var num in collection)
+                                 {
+                                     if (num % 2 != 0)
+                                               results.Add(num);
+                                 }
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p>Linq, great example of declarative expression</p> 
+                    <pre><code data-trim data-noescape>
+                    var results = collection.Where( num => num % 2 != 0);
+                    </code></pre>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>Symmetry</h3>
+                        <p>Symmetry in code is where the same idea is expressed the same way everywhere it appears in the code.</p>
+                        <p class="fragment">Once readers understand one half of the simmetry, they can quickly understand the other half.</p>
+                    </section>
+				    <section>
+                    <p></p> 
+                    <pre><code data-trim data-noescape>
+                      offer.assignCustomer(customer);
+                      offer.status = Offer.Accepted;
+                      offer.changeLastModifiedDate();
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p></p> 
+                    <pre><code data-trim data-noescape>
+                      offer.assignCustomer(customer);
+                      offer.accepted();
+                      offer.changeLastModifiedDate();
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p></p> 
+                    <pre><code data-trim data-noescape>
+                      offer.assignCustomer(customer);
+                      offer.accepted();
+                    </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Rate of change</h3>
+                        <p>Logic or data that changes at the same rate together and separate logic or data that changes at different rates</p>
+                        <p class="fragment">Connascence concept (coupling and cohesion)</p>
+                    </section>
+				    <section>
+                    <p>Block a stock vehicle given a source</p> 
+                    <pre><code data-trim data-noescape>
+                        public void BlockStockVehicle(string sourceOperation, string itemSource){
+                            this.sourceOperation = sourceOperation;
+                            this.itemSource = itemSource;
+                        }
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p>new requirement: Who is blocking this vehicle?</p> 
+                    <pre><code data-trim data-noescape>
+                        public void BlockStockVehicle(string sourceOperation, string itemSource, string userId){
+                            this.sourceOperation = sourceOperation;
+                            this.itemSource = itemSource;
+                            this.userId = userId;
+                        }
+                    </code></pre>
+                    </section>
+				    <section>
+                    <p>Rate of change applies to data</p> 
+                    <pre><code data-trim data-noescape>
+                        public void BlockStockVehicle(Source source){
+                            this.source = source;
+                        }
+                    </code></pre>
+                    </section>
+                </section>
+
+                <section><img src="theEnd.gif"/></section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
